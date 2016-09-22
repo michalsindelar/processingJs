@@ -42,7 +42,7 @@ function draw() {
 }
 
 function mousePressed() {
-	// TODO: Here must be checking if pointer over canvas
+	if ($(".Menu:hover").length !== 0) return // menu interaction handles jquery binding
 
 	var existingPoint = findExistingPoint()
 
