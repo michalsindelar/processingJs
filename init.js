@@ -10,5 +10,6 @@ window.onload = () => {
 
 function initBindings() {
 	// Menu
-	$("#reset").bind("click", restartApp)
+	$("#resetCanvas").bind("click", restartApp)
+	$("#addRandomPoint").bind("click", addRandomPoint)
 }

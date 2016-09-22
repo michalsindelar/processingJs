@@ -5,7 +5,11 @@ var mode;
 // SEPARATE STORE
 var SETTINGS = {
 	pointRadius: 20,
-	acceptedFocusDeviation: 20
+	acceptedFocusDeviation: 20,
+
+	canvasWidth: window.innerWidth,
+	canvasHeight: window.innerHeight * .8,
+
 }
 
 // CUSTOM CLASSES
@@ -19,15 +23,19 @@ class Point {
 
 function setup() {
 
-	createCanvas(800, 500);
+	// Full width + create space for Menu
+	createCanvas(
+		SETTINGS.canvasWidth,
+		SETTINGS.canvasHeight
+	);
+
 	noStroke();
 
-	// color del fondo
-	background(255, 0, 88);
+	background(10, 10, 10);
 }
 
 function draw() {
-	background(255, 255, 255, 10);
+	background(255, 255, 255);
 
 	// Draw all points
 	points.map((point, index) => drawPoint(point.x, point.y))
@@ -38,7 +46,8 @@ function mouseClicked() {
 
 	// Add point
 	if (mouseButton == LEFT && !existingPoint) {
-		points.push(new Point(mouseX, mouseY))
+
+		addPoint(new Point(mouseX, mouseY))
 	}
 	// Remove point
 	else if (mouseButton == RIGHT && existingPoint) {
@@ -62,16 +71,21 @@ function findExistingPoint() {
 	return points.find((point) => Math.abs(point.x - mouseX) < SETTINGS.acceptedFocusDeviation && Math.abs(point.y - mouseY) < SETTINGS.acceptedFocusDeviation)
 }
 
+function addPoint(point) {
+	points.push(point)
+}
+
+function addRandomPoint() {
+	addPoint(new Point(_.random(0, SETTINGS.canvasWidth), _.random(0, SETTINGS.canvasHeight)))
+}
+
 function drawPoint(x, y) {
-	fill(0, 0, 0, 100);
+	fill(200, 200, 200);
 	ellipse(x, y, SETTINGS.pointRadius, SETTINGS.pointRadius);
 }
 
-/**
- * TODO: Decide what should restart the app - probably some btn
- */
 function keyPressed() {
-	restartApp();
+	SETTINGS.canvasHeight = 10
 }
 
 /**
