@@ -1,5 +1,5 @@
 // GLOBAL VARIABLES HERE
-var points = []; // Immutable
+var points = new Immutable.Set(); // Immutable
 var mode;
 
 // SEPARATE STORE
@@ -41,20 +41,19 @@ function draw() {
 	points.map((point, index) => drawPoint(point.x, point.y))
 }
 
-function mouseClicked() {
+function mousePressed() {
+	// TODO: Here must be checking if pointer over canvas
+
 	var existingPoint = findExistingPoint()
 
 	// Add point
 	if (mouseButton == LEFT && !existingPoint) {
-
 		addPoint(new Point(mouseX, mouseY))
 	}
 	// Remove point
 	else if (mouseButton == RIGHT && existingPoint) {
-		points.splice(points.indexOf(existingPoint), 1)
+		removePoint(existingPoint)
 	}
-
-
 }
 
 function mouseDragged() {
@@ -72,11 +71,19 @@ function findExistingPoint() {
 }
 
 function addPoint(point) {
-	points.push(point)
+	points = points.add(point)
 }
 
 function addRandomPoint() {
 	addPoint(new Point(_.random(0, SETTINGS.canvasWidth), _.random(0, SETTINGS.canvasHeight)))
+}
+
+function removePoint(existingPoint) {
+	points = points.remove(existingPoint)
+}
+
+function removeRandomPoint() {
+	points = points.remove(points.last())
 }
 
 function drawPoint(x, y) {
@@ -92,7 +99,7 @@ function keyPressed() {
  * Clear all app data (points etc)
  */
 function clearAppData() {
-	points = [];
+	points = points.clear();
 }
 
 /**
