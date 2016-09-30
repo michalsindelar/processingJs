@@ -44,8 +44,7 @@ function draw() {
 
 
 function mousePressed() {
-	if ($(".Menu:hover").length !== 0) return // menu interaction handles jquery binding
-	if ($(".Modes:hover").length !== 0) return // menu interaction handles jquery binding
+	if ($("canvas:hover").length === 0) return // interaction only above canvas
 
 	var existingPoint = findExistingPoint()
 
