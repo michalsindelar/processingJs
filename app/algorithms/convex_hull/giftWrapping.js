@@ -4,7 +4,7 @@
 
 const MINIMAL_POINTS_COUNT_FOR_HULL = 3
 
-function createConvexHull(points, alg) {
+function getConvexHullList(points, alg) {
 
 	if (points.size < MINIMAL_POINTS_COUNT_FOR_HULL)
 		throw "At least " + MINIMAL_POINTS_COUNT_FOR_HULL + " points are required for convex hull."

@@ -11,5 +11,6 @@
     <orderEntry type="library" name="jquery" level="application" />
     <orderEntry type="library" name="lodash" level="application" />
     <orderEntry type="library" name="immutable" level="application" />
+    <orderEntry type="library" name="paper-core" level="application" />
   </component>
 </module>

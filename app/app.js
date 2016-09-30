@@ -26,20 +26,26 @@ function setup() {
 }
 
 function draw() {
+	clear()
 
 	// Draw all points
 	points.map((point, index) => drawPoint(point.x, point.y))
 
-	const convexHull = createConvexHull(points)
-	convexHull.map((point, i) => {
-		line(point.x, point.y, convexHull.get((i+1) % convexHull.size).x, convexHull.get((i+1) % convexHull.size).y)
-		stroke(0)
-	})
-
+	// Enabled modes
+	if (MODES.GIFT_WRAPPING) {
+		const convexHull = getConvexHullList(points)
+		convexHull.map((point, i) => {
+			line(point.x, point.y, convexHull.get((i+1) % convexHull.size).x, convexHull.get((i+1) % convexHull.size).y)
+			stroke(0)
+		})
+	}
 }
+
+
 
 function mousePressed() {
 	if ($(".Menu:hover").length !== 0) return // menu interaction handles jquery binding
+	if ($(".Modes:hover").length !== 0) return // menu interaction handles jquery binding
 
 	var existingPoint = findExistingPoint()
 
@@ -97,7 +103,12 @@ function keyPressed() {
  * Clear all app data (points etc)
  */
 function clearAppData() {
-	points = points.clear();
+	points = points.clear()
+
+	// Not very nice
+	for( var key in MODES ) {
+		MODES[key] = false;
+	}
 }
 
 /**

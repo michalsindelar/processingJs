@@ -7,20 +7,22 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/lodash/4.16.1/lodash.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/immutable.js/3.8.1/immutable.min.js"></script>
-	<script language="javascript" type="text/javascript" src="libraries/p5.js"></script>
+	<script language="javascript" type="text/javascript" src="libs/p5.js"></script>
 
 	<!-- App -->
-	<script language="javascript" type="text/javascript" src="init.js"></script>
+	<script language="javascript" type="text/javascript" src="app/modes.js"></script>
+
+	<script language="javascript" type="text/javascript" src="app/init.js"></script>
 	<!-- uncomment lines below to include extra p5 libraries -->
 	<!--<script language="javascript" src="libraries/p5.dom.js"></script>-->
 	<!--<script language="javascript" src="libraries/p5.sound.js"></script>-->
-	<script language="javascript" type="text/javascript" src="app.js"></script>
+	<script language="javascript" type="text/javascript" src="app/app.js"></script>
 
 	<!-- Algorithms -->
-	<script language="javascript" type="text/javascript" src="algorithms/convex_hull/giftWrapping.js"></script>
+	<script language="javascript" type="text/javascript" src="app/algorithms/convex_hull/giftWrapping.js"></script>
 
 	<!-- Classes -->
-	<script language="javascript" type="text/javascript" src="classes/Point.js"></script>
+	<script language="javascript" type="text/javascript" src="app/classes/Point.js"></script>
 
 	<!-- Styles -->
 	<!-- Latest compiled and minified CSS -->
@@ -28,13 +30,17 @@
 	<link rel="stylesheet" type="text/css" href="styles/main.css">
 </head>
 
-<body >
+<body>
 
 	<div class="Menu">
 		<div id="new" class="btn btn-default">New canvas</div>
 		<div id="resetCanvas" class="btn btn-default">Reset</div>
 		<div id="addRandomPoint" class="btn btn-default">Add random point</div>
 		<div id="removeRandomPoint" class="btn btn-default">Remove random point</div>
+	</div>
+
+	<div class="Modes">
+
 	</div>
 
 </body>
