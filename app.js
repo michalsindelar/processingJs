@@ -12,14 +12,6 @@ var SETTINGS = {
 
 }
 
-// CUSTOM CLASSES
-class Point {
-	constructor(x, y) {
-		this.x = x;
-		this.y = y;
-	}
-}
-
 
 function setup() {
 
@@ -29,16 +21,21 @@ function setup() {
 		SETTINGS.canvasHeight
 	);
 
-	noStroke();
-
-	background(10, 10, 10);
+	// noStroke();
+	background(255, 255, 255);
 }
 
 function draw() {
-	background(255, 255, 255);
 
 	// Draw all points
 	points.map((point, index) => drawPoint(point.x, point.y))
+
+	const convexHull = createConvexHull(points)
+	convexHull.map((point, i) => {
+		line(point.x, point.y, convexHull.get((i+1) % convexHull.size).x, convexHull.get((i+1) % convexHull.size).y)
+		stroke(0)
+	})
+
 }
 
 function mousePressed() {
@@ -89,6 +86,7 @@ function removeRandomPoint() {
 function drawPoint(x, y) {
 	fill(200, 200, 200);
 	ellipse(x, y, SETTINGS.pointRadius, SETTINGS.pointRadius);
+	text("[" + round(x) + "," + round(y) + "]", x + 15, y);
 }
 
 function keyPressed() {
