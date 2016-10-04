@@ -2,21 +2,6 @@
  * Created by michal on 27/09/16.
  */
 
-const MINIMAL_POINTS_COUNT_FOR_HULL = 3
-
-function getConvexHullList(points, alg) {
-
-	if (points.size < MINIMAL_POINTS_COUNT_FOR_HULL)
-		throw "At least " + MINIMAL_POINTS_COUNT_FOR_HULL + " points are required for convex hull."
-
-	switch (mode) {
-
-		default:
-			return giftWrapping(points)
-	}
-
-}
-
 /**
  *
  * @param points Immutable.Set

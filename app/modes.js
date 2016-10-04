@@ -3,5 +3,6 @@
  */
 
 var MODES = {
-	GIFT_WRAPPING: false
+	GIFT_WRAPPING: false,
+	GRAHAM_SCAN: false
 }
