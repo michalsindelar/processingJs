@@ -32,13 +32,21 @@ function draw() {
 	points.map((point, index) => drawPoint(point.x, point.y))
 
 	// Enabled modes
-	if (MODES.GIFT_WRAPPING) {
-		const convexHull = getConvexHullList(points)
+
+	// Convex hull
+	if (MODES.GIFT_WRAPPING || MODES.GRAHAM_SCAN) {
+
+		const convexHull = MODES.GIFT_WRAPPING ?
+			getConvexHullList(points, MODES_SETTINGS.GIFT_WRAPPING) :
+			getConvexHullList(points, MODES_SETTINGS.GRAHAM_SCAN)
+
 		convexHull.map((point, i) => {
 			line(point.x, point.y, convexHull.get((i+1) % convexHull.size).x, convexHull.get((i+1) % convexHull.size).y)
 			stroke(0)
 		})
+
 	}
+
 }
 
 
