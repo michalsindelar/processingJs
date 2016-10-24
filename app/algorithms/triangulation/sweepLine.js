@@ -6,6 +6,12 @@
  */
 function sweepLine(points) {
 
+	// Ensure that first point of input points are lexicographic minimal
+	while (points.first() !== points.minBy(point => point.y)) {
+		points = points.push(points.first())
+		points = points.shift()
+	}
+
 	// TODO: Fix lexicographic sorting
 	var sortedPoints = points.sortBy(point => point.y)
 

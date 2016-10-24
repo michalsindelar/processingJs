@@ -31,32 +31,39 @@ function draw() {
 	// Draw all points
 	points.map((point, index) => drawPoint(point.x, point.y))
 
-	const drawConvexHullPoints = convexHull => {
-		convexHull.map((point, i) => {
-			line(point.x, point.y, convexHull.get((i+1) % convexHull.size).x, convexHull.get((i+1) % convexHull.size).y)
+	const drawPolygon = pointsList => {
+		pointsList.map((point, i) => {
+			line(point.x, point.y, pointsList.get((i+1) % pointsList.size).x, pointsList.get((i+1) % pointsList.size).y)
 			stroke(0)
 		})
 	}
 
-	// Enabled modes
+	if (MODES.DIRECT_POINTS_SET) {
+		drawPolygon(points.toList())
+	}
 
-	// Convex hull
+	// CONVEX HULL
+	// ===
 	if (MODES.GIFT_WRAPPING || MODES.GRAHAM_SCAN) {
 
 		const convexHull = MODES.GIFT_WRAPPING ?
 			getConvexHullList(points, MODES_SETTINGS.GIFT_WRAPPING) :
 			getConvexHullList(points, MODES_SETTINGS.GRAHAM_SCAN)
 
-		drawConvexHullPoints(convexHull)
+		drawPolygon(convexHull)
 
 	}
 
-	// Triangulation
+	// TRIANGULATION
+	// ===
 	if (MODES.TRIANGULATION_SWEEP_LINE) {
-		const convexHullPoints = getConvexHullList(points, MODES_SETTINGS.GRAHAM_SCAN)
-		const triangulationDiagonals = getTriangulationPoints(convexHullPoints, MODES.TRIANGULATION_SWEEP_LINE)
+		const inputPolygon = MODES.DIRECT_POINTS_SET
+			? points.toList()
+			: getConvexHullList(points, MODES_SETTINGS.GRAHAM_SCAN)
 
-		drawConvexHullPoints(convexHullPoints)
+		const triangulationDiagonals = getTriangulationPoints(inputPolygon, MODES.TRIANGULATION_SWEEP_LINE)
+
+		!MODES.DIRECT_POINTS_SET && drawPolygon(inputPolygon)
 
 		triangulationDiagonals.map((diagonal) => {
 			line(diagonal[0].x, diagonal[0].y, diagonal[1].x, diagonal[1].y)
