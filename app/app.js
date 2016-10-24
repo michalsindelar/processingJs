@@ -31,6 +31,13 @@ function draw() {
 	// Draw all points
 	points.map((point, index) => drawPoint(point.x, point.y))
 
+	const drawConvexHullPoints = convexHull => {
+		convexHull.map((point, i) => {
+			line(point.x, point.y, convexHull.get((i+1) % convexHull.size).x, convexHull.get((i+1) % convexHull.size).y)
+			stroke(0)
+		})
+	}
+
 	// Enabled modes
 
 	// Convex hull
@@ -40,11 +47,21 @@ function draw() {
 			getConvexHullList(points, MODES_SETTINGS.GIFT_WRAPPING) :
 			getConvexHullList(points, MODES_SETTINGS.GRAHAM_SCAN)
 
-		convexHull.map((point, i) => {
-			line(point.x, point.y, convexHull.get((i+1) % convexHull.size).x, convexHull.get((i+1) % convexHull.size).y)
+		drawConvexHullPoints(convexHull)
+
+	}
+
+	// Triangulation
+	if (MODES.TRIANGULATION_SWEEP_LINE) {
+		const convexHullPoints = getConvexHullList(points, MODES_SETTINGS.GRAHAM_SCAN)
+		const triangulationDiagonals = getTriangulationPoints(convexHullPoints, MODES.TRIANGULATION_SWEEP_LINE)
+
+		drawConvexHullPoints(convexHullPoints)
+
+		triangulationDiagonals.map((diagonal) => {
+			line(diagonal[0].x, diagonal[0].y, diagonal[1].x, diagonal[1].y)
 			stroke(0)
 		})
-
 	}
 
 }

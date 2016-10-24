@@ -18,7 +18,7 @@ function grahamScan(points) {
 	while (j < sortedPoints.size) {
 		var point = sortedPoints.get(j)
 
-		if (leftHandedTest( convexHull.pop().last(), convexHull.last(), point) >= 0) {
+		if (leftHandedTest( convexHull.pop().last(), convexHull.last(), point)) {
 			convexHull = convexHull.push(point)
 			j++
 		} else {
@@ -42,6 +42,22 @@ function grahamScan(points) {
  * @param nextPoint
  */
 function leftHandedTest(prevPoint, currPoint, nextPoint) {
-	return (currPoint.x - prevPoint.x) * (nextPoint.y - prevPoint.y) -
+	return curveTest(prevPoint, currPoint, nextPoint) === "left"
+}
+
+function rightHandedTest(prevPoint, currPoint, nextPoint) {
+	return curveTest(prevPoint, currPoint, nextPoint) === "right"
+}
+
+function curveTest(prevPoint, currPoint, nextPoint) {
+	if (!prevPoint || !currPoint || !nextPoint) return ""
+
+	const test = (currPoint.x - prevPoint.x) * (nextPoint.y - prevPoint.y) -
 		(currPoint.y - prevPoint.y) * (nextPoint.x - prevPoint.x)
+
+	if (test > 0) {
+		return "left"
+	} else {
+		return "right"
+	}
 }
