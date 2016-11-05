@@ -19,7 +19,7 @@ var SETTINGS = {
 const drawLine = (a, b) => line(a.x, a.y, b.x, b.y)
 const dfs = (node, extraFnc = () => {}) => {
 	node.line &&
-		drawLine(node.line[0], node.line[1])
+		extraFnc(node.line[0], node.line[1])
 
 	node.leftNode &&
 		dfs(node.leftNode, extraFnc)
@@ -47,7 +47,7 @@ function draw() {
 
 	const drawPolygon = pointsList => {
 		pointsList.map((point, i) => {
-			line(point.x, point.y, pointsList.get((i+1) % pointsList.size).x, pointsList.get((i+1) % pointsList.size).y)
+			drawLine(point, pointsList.get((i+1) % pointsList.size))
 			stroke(0)
 		})
 	}
@@ -80,7 +80,7 @@ function draw() {
 		!MODES.DIRECT_POINTS_SET && drawPolygon(inputPolygon)
 
 		triangulationDiagonals.map((diagonal) => {
-			line(diagonal[0].x, diagonal[0].y, diagonal[1].x, diagonal[1].y)
+			drawLine(diagonal[0], diagonal[1])
 			stroke(0)
 		})
 	}
@@ -89,9 +89,7 @@ function draw() {
 	// ===
 	if (MODES.KD_TREE) {
 		const rootNode = getOrthogonalDataStructure(points)
-		dfs(
-			rootNode
-		)
+		dfs(rootNode, drawLine)
 	}
 
 }
