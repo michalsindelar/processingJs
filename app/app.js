@@ -1,8 +1,10 @@
 // GLOBAL VARIABLES HERE
+// ===
 var points = new Immutable.Set(); // Immutable
 var mode;
 
 // SEPARATE STORE
+// ===
 var SETTINGS = {
 	pointRadius: 20,
 	acceptedFocusDeviation: 20,
@@ -12,6 +14,18 @@ var SETTINGS = {
 
 }
 
+// COMMON TOOLS
+// ===
+const drawLine = (a, b) => line(a.x, a.y, b.x, b.y)
+const dfs = (node, extraFnc = () => {}) => {
+	node.line &&
+		drawLine(node.line[0], node.line[1])
+
+	node.leftNode &&
+		dfs(node.leftNode, extraFnc)
+	node.rightNode &&
+		dfs(node.rightNode, extraFnc)
+}
 
 function setup() {
 
@@ -69,6 +83,15 @@ function draw() {
 			line(diagonal[0].x, diagonal[0].y, diagonal[1].x, diagonal[1].y)
 			stroke(0)
 		})
+	}
+
+	// ORTHOGONAL SORTING
+	// ===
+	if (MODES.KD_TREE) {
+		const rootNode = getOrthogonalDataStructure(points)
+		dfs(
+			rootNode
+		)
 	}
 
 }
