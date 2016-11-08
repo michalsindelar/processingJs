@@ -16,15 +16,24 @@ var SETTINGS = {
 
 // COMMON TOOLS
 // ===
-const drawLine = (a, b) => line(a.x, a.y, b.x, b.y)
-const dfs = (node, extraFnc = () => {}) => {
+const drawLine = (a, b, color = [0,0,0]) => {
+	line(a.x, a.y, b.x, b.y)
+	stroke(color)
+}
+const dfs = (node, depth, extraFnc = () => {}) => {
 	node.line &&
-		extraFnc(node.line[0], node.line[1])
+		extraFnc(
+			node.line[0],
+			node.line[1],
+			isEven(depth)
+				? [150, 0, 0]
+				: [0, 0, 150]
+		)
 
 	node.leftNode &&
-		dfs(node.leftNode, extraFnc)
+		dfs(node.leftNode, depth + 1, extraFnc)
 	node.rightNode &&
-		dfs(node.rightNode, extraFnc)
+		dfs(node.rightNode, depth + 1, extraFnc)
 }
 
 function setup() {
@@ -89,7 +98,7 @@ function draw() {
 	// ===
 	if (MODES.KD_TREE) {
 		const rootNode = getOrthogonalDataStructure(points)
-		dfs(rootNode, drawLine)
+		dfs(rootNode, 0, drawLine)
 	}
 
 }
