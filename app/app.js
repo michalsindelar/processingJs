@@ -84,7 +84,12 @@ function draw() {
 			? points.toList()
 			: getConvexHullList(points, MODES_SETTINGS.GRAHAM_SCAN)
 
-		const triangulationDiagonals = getTriangulationPoints(inputPolygon, MODES.TRIANGULATION_SWEEP_LINE)
+		const triangulationDiagonals =
+			getTriangulationPoints(
+				inputPolygon,
+				MODES_SETTINGS.TRIANGULATION_SWEEP_LINE
+			)
+
 
 		!MODES.DIRECT_POINTS_SET && drawPolygon(inputPolygon)
 
@@ -93,6 +98,19 @@ function draw() {
 			stroke(0)
 		})
 	}
+
+	if (MODES.TRIANGULATION_DELAUNAY) {
+		const triangulationDiagonals =
+			getTriangulationPoints(
+				points.toList(),
+				MODES_SETTINGS.TRIANGULATION_DELAUNAY
+			)
+		triangulationDiagonals.map((diagonal) => {
+			drawLine(diagonal[0], diagonal[1])
+			stroke(0)
+		})
+	}
+
 
 	// ORTHOGONAL SORTING
 	// ===

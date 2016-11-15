@@ -29,24 +29,24 @@ function grahamScan(points) {
 	return convexHull
 }
 
-
+const CURVE_CONSTS = {
+	LEFT: "LEFT",
+	RIGHT: "RIGHT",
+	INLINE: "INLINE",
+}
 /**
  * Test of 3 points orientation
- *
- * returns > 0 if 3 points left-handed
- * returns 0 if 3 in row
- * returns < 0 if 3 points right-handed
  *
  * @param prevPoint
  * @param currPoint
  * @param nextPoint
  */
 function leftHandedTest(prevPoint, currPoint, nextPoint) {
-	return curveTest(prevPoint, currPoint, nextPoint) === "left"
+	return curveTest(prevPoint, currPoint, nextPoint) === CURVE_CONSTS.LEFT
 }
 
 function rightHandedTest(prevPoint, currPoint, nextPoint) {
-	return curveTest(prevPoint, currPoint, nextPoint) === "right"
+	return curveTest(prevPoint, currPoint, nextPoint) === CURVE_CONSTS.RIGHT
 }
 
 function curveTest(prevPoint, currPoint, nextPoint) {
@@ -55,9 +55,11 @@ function curveTest(prevPoint, currPoint, nextPoint) {
 	const test = (currPoint.x - prevPoint.x) * (nextPoint.y - prevPoint.y) -
 		(currPoint.y - prevPoint.y) * (nextPoint.x - prevPoint.x)
 
-	if (test > 0) {
-		return "left"
+	if (test === 0) {
+		return CURVE_CONSTS.INLINE
+	} else if (test > 0) {
+		return CURVE_CONSTS.LEFT
 	} else {
-		return "right"
+		return CURVE_CONSTS.RIGHT
 	}
 }

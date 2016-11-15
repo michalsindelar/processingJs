@@ -3,9 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="4cc8d8b4-5090-47d2-9dcf-8c5269078034" name="Default" comment="NEW: Direct points hull setting mode">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/algorithms/orthogonal/index.js" afterPath="$PROJECT_DIR$/app/algorithms/orthogonal/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/algorithms/orthogonal/kdTree.js" afterPath="$PROJECT_DIR$/app/algorithms/orthogonal/kdTree.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.js" afterPath="$PROJECT_DIR$/app/app.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/modes.js" afterPath="$PROJECT_DIR$/app/modes.js" />
     </list>
     <ignored path="processingJs.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -30,11 +28,21 @@
     <splitter split-orientation="horizontal" split-proportion="0.5">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="kdTree.js" pinned="false" current-in-tab="true">
+          <file leaf-file-name="kdTree.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/app/algorithms/orthogonal/kdTree.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="468">
-                  <caret line="55" column="19" lean-forward="true" selection-start-line="55" selection-start-column="19" selection-end-line="55" selection-end-column="19" />
+                <state relative-caret-position="423">
+                  <caret line="51" column="16" lean-forward="true" selection-start-line="51" selection-start-column="16" selection-end-line="51" selection-end-column="16" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="modes.js" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/app/modes.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="315">
+                  <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -48,7 +56,7 @@
             <entry file="file://$PROJECT_DIR$/app/algorithms/orthogonal/kdTree.js">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="975">
-                  <caret line="65" column="44" lean-forward="false" selection-start-line="65" selection-start-column="39" selection-end-line="65" selection-end-column="44" />
+                  <caret line="65" column="5" lean-forward="true" selection-start-line="65" selection-start-column="5" selection-end-line="65" selection-end-column="5" />
                   <folding />
                 </state>
               </provider>
@@ -57,8 +65,8 @@
           <file leaf-file-name="app.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/app/app.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="422">
-                  <caret line="29" column="29" lean-forward="false" selection-start-line="29" selection-start-column="29" selection-end-line="29" selection-end-column="29" />
+                <state relative-caret-position="602">
+                  <caret line="41" column="17" lean-forward="true" selection-start-line="41" selection-start-column="17" selection-end-line="41" selection-end-column="17" />
                   <folding>
                     <element signature="n#!!doc" expanded="true" />
                   </folding>
@@ -134,7 +142,6 @@
         <option value="$PROJECT_DIR$/app/algorithms/triangulation/index.js" />
         <option value="$PROJECT_DIR$/app/algorithms/convex_hull/grahamScan.js" />
         <option value="$PROJECT_DIR$/app/algorithms/triangulation/sweepLine.js" />
-        <option value="$PROJECT_DIR$/app/modes.js" />
         <option value="$PROJECT_DIR$/app/classes/KdTree.js" />
         <option value="$PROJECT_DIR$/app/algorithms/kd_tree/index.js" />
         <option value="$PROJECT_DIR$/index.html" />
@@ -142,6 +149,7 @@
         <option value="$PROJECT_DIR$/app/algorithms/orthogonal/index.js" />
         <option value="$PROJECT_DIR$/app/algorithms/orthogonal/kdTree.js" />
         <option value="$PROJECT_DIR$/app/app.js" />
+        <option value="$PROJECT_DIR$/app/modes.js" />
       </list>
     </option>
   </component>
@@ -187,8 +195,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -429,6 +437,7 @@
       <workItem from="1478602943939" duration="379000" />
       <workItem from="1478679174537" duration="24000" />
       <workItem from="1479204190944" duration="16000" />
+      <workItem from="1479204602865" duration="342000" />
     </task>
     <task id="LOCAL-00001" summary="new: init readme">
       <created>1474550971756</created>
@@ -560,7 +569,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="70046000" />
+    <option name="totallyTimeSpent" value="70388000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -576,7 +585,7 @@
     <editor active="false" />
     <layout>
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.11172161" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.11294261" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3291536" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3449304" sideWeight="0.502442" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32810867" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1006,23 +1015,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/modes.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="23" lean-forward="false" selection-start-line="6" selection-start-column="23" selection-end-line="6" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="422">
-          <caret line="29" column="29" lean-forward="false" selection-start-line="29" selection-start-column="29" selection-end-line="29" selection-end-column="29" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/algorithms/orthogonal/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
@@ -1033,8 +1025,26 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/algorithms/orthogonal/kdTree.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="468">
-          <caret line="55" column="19" lean-forward="true" selection-start-line="55" selection-start-column="19" selection-end-line="55" selection-end-column="19" />
+        <state relative-caret-position="423">
+          <caret line="51" column="16" lean-forward="true" selection-start-line="51" selection-start-column="16" selection-end-line="51" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="602">
+          <caret line="41" column="17" lean-forward="true" selection-start-line="41" selection-start-column="17" selection-end-line="41" selection-end-column="17" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/modes.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
           <folding />
         </state>
       </provider>
