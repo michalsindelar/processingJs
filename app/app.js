@@ -25,7 +25,7 @@ const dfs = (node, depth, extraFnc = () => {}) => {
 		extraFnc(
 			node.line[0],
 			node.line[1],
-			isEven(depth)
+			depth % 2
 				? [150, 0, 0]
 				: [0, 0, 150]
 		)
@@ -97,7 +97,10 @@ function draw() {
 	// ORTHOGONAL SORTING
 	// ===
 	if (MODES.KD_TREE) {
-		const rootNode = getOrthogonalDataStructure(points)
+		const rootNode = getOrthogonalDataStructure(
+			points,
+			[new Point(0, 0), new Point(SETTINGS.canvasWidth, SETTINGS.canvasHeight)]
+		)
 		dfs(rootNode, 0, drawLine)
 	}
 

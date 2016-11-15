@@ -18,55 +18,66 @@ const splitPoints = (points, depth) => {
 
 	return [
 		sortedPoints.take(median(sortedPoints.size)),
-		sortedPoints.takeLast(sortedPoints.size - median(sortedPoints.size) + 1)
+		sortedPoints.takeLast(sortedPoints.size - median(sortedPoints.size))
 	]
 }
-const splitLine = (points, depth) => {
+const splitLine = (points, allowedArea, depth) => {
 	const median = getPointsMedian(points, isEven(depth) ? AXIS.X : AXIS.Y)
-	const sortedPoints = points.sortBy(point => isEven(depth) ? point.y : point.x)
 
+	// even ... |  vertical line
+	// odd  ... -- horizontal line
 	return [
 		new Point(
 			isEven(depth)
 				? median.x
-				: sortedPoints.first().x,
+				: allowedArea[0].x,
 			isEven(depth)
-				? sortedPoints.first().y
+				? allowedArea[0].y
 				: median.y
 		),
 		new Point(
 			isEven(depth)
 				? median.x
-				: sortedPoints.last().x,
+				: allowedArea[1].x,
 			isEven(depth)
-				? sortedPoints.last().y
+				? allowedArea[1].y
 				: median.y
 		)
 	]
 }
 /**
  * @param points Immutable list
+ * @param allowedArea
  * @param depth Integer
  * @returns Node
  */
-function buildKdTree(points, depth = 0) {
+function buildKdTree(points, allowedArea, depth = 0) {
 	// Special case
-	if (points.size === 2) {
+	if (points.size === 1) {
 		return new Node(points.get(0))
 	}
 
+	const median = getPointsMedian(points, isEven(depth) ? AXIS.X : AXIS.Y)
+
 	// Initialize node
 	let node = new Node(
-		getPointsMedian(points, isEven(depth) ? AXIS.X : AXIS.Y),
-		splitLine(points, depth)
+		median,
+		splitLine(points, allowedArea, depth)
 	)
 
-	// Test decomposition
+	// left == bottom, right == upper (based on vertical / horizontal split line)
 	const [left, right] = splitPoints(points, depth)
 
+	const leftArea = isEven(depth)
+		? [allowedArea[0], new Point(median.x, allowedArea[1].y)]
+		: [allowedArea[0], new Point(allowedArea[1].x, median.y)]
 
-	node.leftNode = buildKdTree(left, depth + 1)
-	node.rightNode = buildKdTree(right, depth + 1)
+	const rightArea = isEven(depth)
+		? [new Point(median.x, allowedArea[0].y), allowedArea[1]]
+		: [new Point(allowedArea[0].x, median.y), allowedArea[1]]
+
+	node.leftNode = buildKdTree(left, leftArea, depth + 1)
+	node.rightNode = buildKdTree(right, rightArea, depth + 1)
 
 	return node
 }
