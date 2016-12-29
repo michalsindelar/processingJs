@@ -109,6 +109,7 @@ function draw() {
 			drawLine(diagonal[0], diagonal[1])
 			stroke(0)
 		})
+
 	}
 
 
@@ -122,6 +123,23 @@ function draw() {
 		dfs(rootNode, 0, drawLine)
 	}
 
+
+	// VORONOI DIAGRAM
+	// ===
+	if (MODES.VORONOI) {
+		const [centerPoints, edges] = getDiagram(points.toList(), MODES_SETTINGS.VORONOI)
+		centerPoints.map(center => {
+			stroke([255,0,0])
+			drawPoint(center.x, center.y)
+			stroke([0,0,0])
+		})
+		edges.map(edge => {
+			stroke([255,0,0])
+			drawLine(edge[0], edge[1])
+			stroke([0,0,0])
+		})
+
+	}
 }
 
 

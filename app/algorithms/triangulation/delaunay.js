@@ -6,6 +6,7 @@ const sameEdge = (e1, e2) => e1[0] === e2[0] && e1[1] === e2[1]
 
 const containsEdge = (edges, edge) => !!edges.find(e => sameEdge(e, edge))
 const containsEdgeAndFlipEdge = (edges, edge) => containsEdge(edges, edge) && containsEdge(edges, flipEdge(edge))
+const containsEdgeOrFlipEdge = (edges, edge) => containsEdge(edges, edge) || containsEdge(edges, flipEdge(edge))
 
 const euclideanDistance = (a, b) => createVector(a.x, a.y).dist(createVector(b.x, b.y))
 const hasPointsOnTheLeft = (points, edge) => points.reduce(
@@ -16,22 +17,6 @@ const filterPointsOnLeft = (points, edge) => points
 	.filter(point => point !== edge[0] && point !== edge[1])
 	.filter(point => leftHandedTest(...edge, point))
 
-const circumCenter = (a, b, c) => {
-	const D = (a.x - c.x) * (b.y - c.y) - (b.x - c.x) * (a.y - c.y)
-
-	const center = new Point(
-		(((a.x - c.x) * (a.x + c.x) + (a.y - c.y) * (a.y + c.y)) / 2 * (b.y - c.y)
-		-  ((b.x - c.x) * (b.x + c.x) + (b.y - c.y) * (b.y + c.y)) / 2 * (a.y - c.y))
-		/ D,
-		(((b.x - c.x) * (b.x + c.x) + (b.y - c.y) * (b.y + c.y)) / 2 * (a.x - c.x)
-		-  ((a.x - c.x) * (a.x + c.x) + (a.y - c.y) * (a.y + c.y)) / 2 * (b.x - c.x))
-		/ D
-	)
-
-	const rad = Math.sqrt(Math.pow(c.x - center.x, 2) + Math.pow(c.y - center.y, 2))
-	return center
-}
-
 const delaunyDistance  = (a,b,c) => {
 
 	// Impossible to create circum circle
@@ -39,7 +24,7 @@ const delaunyDistance  = (a,b,c) => {
 		return Infinity
 	}
 
-	const center = circumCenter(a,b,c)
+	const center = Triangle.staticCircumCenter(a,b,c)
 
 	return leftHandedTest(a, b, center)
 		? euclideanDistance(a, center)
@@ -50,7 +35,7 @@ const delaunyDistance  = (a,b,c) => {
  *
  * @param points immutable List
  */
-const delaunay = (points) => {
+const delaunay = (points, voronoiSupport = false) => {
 
 	let sortedPoints = points.sortBy(point => point.x || point.y)
 	const extremePoint = sortedPoints.first()
@@ -75,11 +60,17 @@ const delaunay = (points) => {
 	let AEL = new Immutable.List()
 	let DT = new Immutable.List()
 
+	let TR = new Immutable.Set()
+
 	AEL = AEL.push(
 		initialEdge,
 		[initialEdge[1], p2],
 		[p2, initialEdge[0]]
 	)
+
+	if (voronoiSupport) {
+		TR = TR.add(new Triangle(initialEdge[0], initialEdge[1], p2))
+	}
 
 	while (AEL.size) {
 		let edge = AEL.first()
@@ -98,6 +89,12 @@ const delaunay = (points) => {
 				!containsEdgeAndFlipEdge(AEL, e2)
 			) {
 				AEL = AEL.push(e2)
+
+				if (voronoiSupport) {
+					const newTriangle = new Triangle(p, edge[0], edge[1])
+					TR = TR.filter(triangle => triangle !== newTriangle)
+					TR = TR.add(newTriangle)
+				}
 			}
 
 			if (
@@ -105,6 +102,12 @@ const delaunay = (points) => {
 				!containsEdgeAndFlipEdge(AEL, e3)
 			) {
 				AEL = AEL.push(e3)
+
+				if (voronoiSupport) {
+					const newTriangle = new Triangle(edge[1], p, edge[0])
+					TR = TR.filter(triangle => triangle !== newTriangle)
+					TR = TR.add(newTriangle)
+				}
 			}
 		}
 
@@ -112,6 +115,8 @@ const delaunay = (points) => {
 
 		AEL = AEL.shift()
 	}
-	return DT
+	return voronoiSupport
+		? [DT, TR]
+		: DT
 }
 
