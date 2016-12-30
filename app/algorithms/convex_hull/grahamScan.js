@@ -1,8 +1,7 @@
 function grahamScan(points) {
-	// TODO: Solve case when more of same y coordinates
-	var pivot = points.minBy(a => a.y)
+	const pivot = points.minBy(a => a.y)
 
-	var sortedPoints = points.remove(pivot).toList().sortBy(
+	const sortedPoints = points.remove(pivot).toList().sortBy(
 		point => p5.Vector.angleBetween(
 			createVector(1, 0),
 			createVector(point.x - pivot.x, point.y - pivot.y )

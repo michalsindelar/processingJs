@@ -65,80 +65,90 @@ function draw() {
 		drawPolygon(points.toList())
 	}
 
-	// CONVEX HULL
-	// ===
-	if (MODES.GIFT_WRAPPING || MODES.GRAHAM_SCAN) {
+	// All modes can emit exception (minimal point count)
+	try {
 
-		const convexHull = MODES.GIFT_WRAPPING ?
-			getConvexHullList(points, MODES_SETTINGS.GIFT_WRAPPING) :
-			getConvexHullList(points, MODES_SETTINGS.GRAHAM_SCAN)
+		// CONVEX HULL
+		// ===
+		if (MODES.GIFT_WRAPPING || MODES.GRAHAM_SCAN) {
 
-		drawPolygon(convexHull)
+			const convexHull = MODES.GIFT_WRAPPING ?
+				getConvexHullList(points, MODES_SETTINGS.GIFT_WRAPPING) :
+				getConvexHullList(points, MODES_SETTINGS.GRAHAM_SCAN)
 
-	}
+			drawPolygon(convexHull)
 
-	// TRIANGULATION
-	// ===
-	if (MODES.TRIANGULATION_SWEEP_LINE) {
-		const inputPolygon = MODES.DIRECT_POINTS_SET
-			? points.toList()
-			: getConvexHullList(points, MODES_SETTINGS.GRAHAM_SCAN)
+		}
 
-		const triangulationDiagonals =
-			getTriangulationPoints(
-				inputPolygon,
-				MODES_SETTINGS.TRIANGULATION_SWEEP_LINE
+		// TRIANGULATION
+		// ===
+
+		// Sweep line
+		if (MODES.TRIANGULATION_SWEEP_LINE) {
+			const inputPolygon = MODES.DIRECT_POINTS_SET
+				? points.toList()
+				: getConvexHullList(points, MODES_SETTINGS.GRAHAM_SCAN)
+
+			const triangulationDiagonals =
+				getTriangulationPoints(
+					inputPolygon,
+					MODES_SETTINGS.TRIANGULATION_SWEEP_LINE
+				)
+
+
+			!MODES.DIRECT_POINTS_SET && drawPolygon(inputPolygon)
+
+			triangulationDiagonals.map((diagonal) => {
+				drawLine(diagonal[0], diagonal[1])
+				stroke(0)
+			})
+		}
+
+		// Delaunay
+		if (MODES.TRIANGULATION_DELAUNAY) {
+			const triangulationDiagonals =
+				getTriangulationPoints(
+					points.toList(),
+					MODES_SETTINGS.TRIANGULATION_DELAUNAY
+				)
+			triangulationDiagonals.map((diagonal) => {
+				drawLine(diagonal[0], diagonal[1])
+				stroke(0)
+			})
+
+		}
+
+		// ORTHOGONAL SORTING
+		// ===
+		if (MODES.KD_TREE) {
+			const rootNode = getOrthogonalDataStructure(
+				points,
+				[new Point(0, 0), new Point(SETTINGS.canvasWidth, SETTINGS.canvasHeight)]
 			)
+			dfs(rootNode, 0, drawLine)
+		}
 
 
-		!MODES.DIRECT_POINTS_SET && drawPolygon(inputPolygon)
+		// VORONOI DIAGRAM
+		// ===
+		if (MODES.VORONOI) {
+			const [centerPoints, edges] = getDiagram(points.toList(), MODES_SETTINGS.VORONOI)
+			centerPoints.map(center => {
+				stroke([255,0,0])
+				drawPoint(center.x, center.y)
+				stroke([0,0,0])
+			})
+			edges.map(edge => {
+				stroke([255,0,0])
+				drawLine(edge[0], edge[1])
+				stroke([0,0,0])
+			})
 
-		triangulationDiagonals.map((diagonal) => {
-			drawLine(diagonal[0], diagonal[1])
-			stroke(0)
-		})
-	}
-
-	if (MODES.TRIANGULATION_DELAUNAY) {
-		const triangulationDiagonals =
-			getTriangulationPoints(
-				points.toList(),
-				MODES_SETTINGS.TRIANGULATION_DELAUNAY
-			)
-		triangulationDiagonals.map((diagonal) => {
-			drawLine(diagonal[0], diagonal[1])
-			stroke(0)
-		})
-
-	}
-
-
-	// ORTHOGONAL SORTING
-	// ===
-	if (MODES.KD_TREE) {
-		const rootNode = getOrthogonalDataStructure(
-			points,
-			[new Point(0, 0), new Point(SETTINGS.canvasWidth, SETTINGS.canvasHeight)]
-		)
-		dfs(rootNode, 0, drawLine)
-	}
-
-
-	// VORONOI DIAGRAM
-	// ===
-	if (MODES.VORONOI) {
-		const [centerPoints, edges] = getDiagram(points.toList(), MODES_SETTINGS.VORONOI)
-		centerPoints.map(center => {
-			stroke([255,0,0])
-			drawPoint(center.x, center.y)
-			stroke([0,0,0])
-		})
-		edges.map(edge => {
-			stroke([255,0,0])
-			drawLine(edge[0], edge[1])
-			stroke([0,0,0])
-		})
-
+		}
+	} catch (e) {
+		// Show alert and recover from exception
+		window.alert(e)
+		restartApp()
 	}
 }
 

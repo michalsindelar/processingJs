@@ -12,8 +12,7 @@ function sweepLine(points) {
 		points = points.shift()
 	}
 
-	// TODO: Fix lexicographic sorting
-	var sortedPoints = points.sortBy(point => point.y)
+	const sortedPoints = points.sortBy(point => point.y)
 
 	// Divide into right left path
 	const pathsSeparator = points.indexOf(sortedPoints.last())
