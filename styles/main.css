@@ -1,10 +1,16 @@
 body {
-  padding: 0;
+  padding: 5px;
   margin: 0;
 }
 canvas {
-  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+  margin-top: 12px;
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.26), 0 2px 10px 0 rgba(0,0,0,0.22);
 }
-.Menu {
-  padding: 12px 0;
+.Menu,
+.Modes {
+  padding-top: 12px;
+}
+.Menu .btn,
+.Modes .btn {
+  margin-right: 5px;
 }
